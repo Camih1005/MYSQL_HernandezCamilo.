@@ -1,6 +1,12 @@
-## create database dowloands
+---
+marp: false
+---
 
-## use dowloands 
+# DATABASE DOWLOANDS 
+``````
+ create database dowloands
+
+use dowloands 
 
  create table usuarios(
  usuario_id int primary key,
@@ -9,11 +15,15 @@
 apellido varchar(100) not null
 );
 
+``````
+
+```
 create table productos(
 id_producto int primary key,
 nombre varchar(100) not null
 );
-
+``````
+``````
 create table descargas(
 id_descargas int primary key,
 id_producto int,
@@ -21,7 +31,8 @@ usuario_id int,
 foreign key(id_producto) references productos(id_producto),
 foreign key(usuario_id) references usuarios(usuario_id)
 )
-
+``````
+``````
 INSERT INTO usuarios(usuario_id , email, primer_nombre,apellido) VALUES
 (11111, 'Guitars@dasarr','camilo','hernandez');
 
@@ -32,22 +43,26 @@ INSERT INTO descargas(id_descargas) VALUES(11113);
 
 select * from usuarios u 
 
-------------------------------------------------------------------------
 
 
-
-## CREATE DATABASE MyGuitarShop;
-## GO
+``````
+---
+# DATABASE MyGuitarShop 
+``````
+CREATE DATABASE MyGuitarShop;
+ GO
 
 USE MyGuitarShop;
-
+``````
+``````
 -- create the tables for the database
 CREATE TABLE Categories (
   CategoryID        INT            PRIMARY KEY   ,
   CategoryName      VARCHAR(255)   NOT NULL      UNIQUE
 );
 show tables;
-
+``````
+``````
 CREATE TABLE Products (
   ProductID         INT PRIMARY KEY,
   CategoryID        INT, 
@@ -59,7 +74,8 @@ CREATE TABLE Products (
   DateAdded         DATETIME not null,
   foreign key(CategoryID)references Categories(CategoryID)
 );
-
+``````
+``````
 CREATE TABLE Customers (
   CustomerID           INT            PRIMARY KEY,
   EmailAddress         VARCHAR(255)   NOT NULL      UNIQUE,
@@ -69,7 +85,8 @@ CREATE TABLE Customers (
   ShippingAddressID    INT                          DEFAULT NULL,
   BillingAddressID     INT                          DEFAULT NULL
 );
-
+``````
+``````
 CREATE TABLE Addresses (
   AddressID          INT PRIMARY KEY ,
   CustomerID         INT ,
@@ -82,6 +99,8 @@ CREATE TABLE Addresses (
   Disabled           INT            NOT NULL      DEFAULT 0,
   foreign key(CustomerID)references Customers(CustomerID)
 );
+``````
+``````
 
 CREATE TABLE Orders (
   OrderID           INT PRIMARY KEY,
@@ -97,6 +116,8 @@ CREATE TABLE Orders (
   BillingAddressID  INT            NOT NULL ,
   foreign key(CustomerID)references Customers(CustomerID)
 );
+``````
+``````
 
 CREATE TABLE OrderItems (
   ItemID             INT ,
@@ -109,6 +130,8 @@ CREATE TABLE OrderItems (
   foreign key(OrderID)references Orders(OrderID),
   foreign key(ProductID)references Products(ProductID)
 );
+``````
+``````
 
 CREATE TABLE Administrators (
   AdminID           INT  PRIMARY KEY ,
@@ -117,8 +140,8 @@ CREATE TABLE Administrators (
   FirstName         VARCHAR(255)   NOT NULL,
   LastName          VARCHAR(255)   NOT NULL
 );
-
-
+``````
+``````
 
 INSERT INTO Categories (CategoryID, CategoryName) VALUES
 (11111, 'Guitars'),
@@ -126,7 +149,8 @@ INSERT INTO Categories (CategoryID, CategoryName) VALUES
 (33333, 'Drums'), 
 (44444, 'Keyboards');
 
-
+``````
+``````
 
 INSERT INTO Products (ProductID, CategoryID, ProductCode, ProductName, Description, ListPrice, DiscountPercent, DateAdded) VALUES
 (199, 11111, 'strat', 'Fender Stratocaster', 'The Fender Stratocaster is the electric guitar design that changed the world. New features include a tinted neck, parchment pickguard and control knobs, and a ''70s-style logo. Includes select alder body, 21-fret maple neck with your choice of a rosewood or maple fretboard, 3 single-coil pickups, vintage-style tremolo, and die-cast tuning keys. This guitar features a thicker bridge block for increased sustain and a more stable point of contact with the strings. At this low price, why play anything but the real thing?\r\n\r\nFeatures:\r\n\r\n* New features:\r\n* Thicker bridge block\r\n* 3-ply parchment pick guard\r\n* Tinted neck', '699.00', '30.00', '2011-10-30 09:32:40'),
@@ -134,7 +158,8 @@ INSERT INTO Products (ProductID, CategoryID, ProductCode, ProductName, Descripti
 (399, 33333, 'sg', 'Gibson SG', 'This Gibson SG electric guitar takes the best of the ''62 original and adds the longer and sturdier neck joint of the late ''60s models. All the classic features you''d expect from a historic guitar. Hot humbuckers go from rich, sweet lightning to warm, tingling waves of sustain. A silky-fast rosewood fretboard plays like a dream. The original-style beveled mahogany body looks like a million bucks. Plus, Tune-O-Matic bridge and chrome hardware. Limited lifetime warranty. Includes hardshell case.\r\n\r\nFeatures:\r\n\r\n* Double-cutaway beveled mahogany body\r\n* Set mahogany neck with rounded ''50s profile\r\n* Bound rosewood fingerboard with trapezoid inlays\r\n* Tune-O-Matic bridge with stopbar tailpiece\r\n* Chrome hardware\r\n* 490R humbucker in the neck position\r\n* 498T humbucker in the bridge position\r\n* 2 volume knobs, 2 tone knobs, 3-way switch\r\n* 24-3/4" scale', '2517.00', '52.00', '2015-02-04 11:04:31'),
 (499, 44444, 'fg700s', 'Yamaha FG700S', 'The Yamaha FG700S solid top acoustic guitar has the ultimate combo for projection and pure tone. The expertly braced spruce top speaks clearly atop the rosewood body. It has a rosewood fingerboard, rosewood bridge, die-cast tuners, body and neck binding, and a tortoise pickguard.\r\n\r\nFeatures:\r\n\r\n* Solid Sitka spruce top\r\n* Rosewood back and sides\r\n* Rosewood fingerboard\r\n* Rosewood bridge\r\n* White/black body and neck binding\r\n* Die-cast tuners\r\n* Tortoise pickguard\r\n* Limited lifetime warranty', '489.99', '38.00', '2015-06-01 11:12:59')
 
-
+``````
+``````
 
 INSERT INTO Customers (CustomerID, EmailAddress, Password, FirstName, LastName, ShippingAddressID, BillingAddressID) VALUES
 (1, 'allan.sherwood@yahoo.com', '650215acec746f0e32bdfff387439eefc1358737', 'Allan', 'Sherwood', 11, 21),
@@ -146,6 +171,8 @@ INSERT INTO Customers (CustomerID, EmailAddress, Password, FirstName, LastName, 
 (7, 'gary_hernandez@yahoo.com', '1ff2b3704aede04eecb51e50ca698efd50a1379b', 'Gary', 'Hernandez', 91, 101),
 (8, 'heatheresway@mac.com', '911ddc3b8f9a13b5499b6bc4638a2b4f3f68bf23', 'Heather', 'Esway', 111, 112);
 
+``````
+``````
 
 INSERT INTO Addresses (AddressID, CustomerID, Line1, Line2, City, State, ZipCode, Phone, Disabled) VALUES
 (11, 1, '100 East Ridgewood Ave.', '', 'Paramus', 'NJ', '07652', '201-653-4472', 0),
@@ -160,9 +187,9 @@ INSERT INTO Addresses (AddressID, CustomerID, Line1, Line2, City, State, ZipCode
 (101, 7, '3829 Broadway Ave.', 'Suite 2', 'New York', 'NY', '10012', '212-239-1208', 0),
 (111, 8, '2381 Buena Vista St.', '', 'Los Angeles', 'CA', '90023', '213-772-5033', 0),
 (112, 8, '291 W. Hollywood Blvd.', '', 'Los Angeles', 'CA', '90024', '213-391-2938', 0);
+``````
 
-
-
+``````
 INSERT INTO Orders (OrderID, CustomerID, OrderDate, ShipAmount, TaxAmount, ShipDate, ShipAddressID, CardType, CardNumber, CardExpires, BillingAddressID) VALUES
 (1000, 1, '2015-02-28 09:40:28', '5.00', '32.32', '2015-02-28 15:32:51', 1, 'Visa', '4111111111111111', '04/2015', 2),
 (2000, 2, '2015-02-28 11:23:20', '5.00', '0.00', '2015-02-28 12:52:14', 3, 'Visa', '4012888888881881', '08/2016', 3),
@@ -173,30 +200,34 @@ INSERT INTO Orders (OrderID, CustomerID, OrderDate, ShipAmount, TaxAmount, ShipD
 (7000, 6, '2015-03-01 23:11:12', '15.00', '0.00', '2015-03-03 10:21:35', 8, 'MasterCard', '5555555555554444', '04/2016', 8),
 (8000, 7, '2015-03-02 11:26:38', '5.00', '0.00', NULL, 9, 'Visa', '4012888888881881', '04/2016', 10),
 (9000, 4, '2015-03-03 12:22:31', '5.00', '0.00', NULL, 5, 'Visa', '4111111111111111', '04/2016', 6);
+``````
 
-
-
+``````
 INSERT INTO OrderItems (ItemID,OrderID, ProductID, ItemPrice, DiscountAmount, Quantity) VALUES
 (109,1000, 199, '1199.00', '359.70', 1),
 (276,2000, 299, '489.99', '186.20', 1),
 (563,3000, 399, '2517.00', '1308.84', 1),
 (544,3000, 499, '415.00', '161.85', 1)
+``````
 
-
-
+``````
 INSERT INTO Administrators (AdminID, EmailAddress, Password, FirstName, LastName) VALUES
 (1, 'admin@myguitarshop.com', '6a718fbd768c2378b511f8249b54897f940e9022', 'Admin', 'User'),
 (2, 'joel@murach.com', '971e95957d3b74d70d79c20c94e9cd91b85f7aae', 'Joel', 'Murach'),
 (3, 'mike@murach.com', '3f2975c819cefc686282456aeae3a137bf896ee8', 'Mike', 'Murach');
 select * from OrderItems oi  ;
-
+``````
+``````
 show tables;
 
+``````
+``````
 SELECT * from Administrators;
-
+``````
 ---
-
-# create database Parques;
+# DATABASE Parque Natural
+``````
+ create database Parques;
 use Parques;
 create table personal(
 id_cedula int primary key,
@@ -210,6 +241,8 @@ id_parque int,
 foreign key(id_tipopersona) references tipo_persona(id_tipo),
 foreign key(id_parque) references parque(id_parque)
 );
+``````
+``````
 create table tipo_persona(
 id_tipo int primary key,
 nombre_tipo varchar(50) not null
@@ -222,13 +255,16 @@ dia_declaracion Date not null,
 id_areas int,
 foreign key(id_areas) references areas(id_area)
 );
+``````
+``````
 create table departamento(
 id_departamento int primary key,
 nombre_departamento varchar(100) not null,
 id_entidad int,
 foreign key(id_entidad) references entidad(id_entidad)
 );
-
+``````
+``````
 create table parque_departamento(
 id_parque int,
 id_departamento int,
@@ -237,6 +273,10 @@ foreign key(id_parque) references parque(id_parque),
 
 foreign key(id_departamento) references departamento(id_departamento)
 );
+
+``````
+``````
+
 create table entidad(
 id_entidad int primary key,
 nombre_entidad varchar(100) not null
@@ -247,12 +287,17 @@ nombre_area varchar(100) not null,
 direccion varchar(100) not null,
 extencion_m2 double not null
 );
+``````
+``````
+
 create table especie(
 id_especie int primary key,
 nombre_especie varchar(100) not null,
 deno_cientifica varchar(100) not null,
 deno_vulgar varchar(100) not null
 );
+``````
+``````
 create table area_especie(
 id_especie int,
 id_area int,
@@ -260,6 +305,8 @@ cantidadXarea int not null,
 foreign key(id_especie) references especie(id_especie),
 foreign key(id_area) references areas(id_area)
 );
+``````
+``````
 create table visitante(
 id_cedula int primary key,
 nombre varchar(100) not null,
@@ -269,12 +316,18 @@ id_parque int,
 foreign key(id_alojamiento) references alojamiento(id_alojamiento),
 foreign key(id_parque) references parque(id_parque)
 );
+
+``````
+``````
+
 create table alojamiento(
 id_alojamiento int primary key,
 nombre_alojamiento varchar(100) not null,
 categoria varchar(10)
 
 );
+``````
+``````
 select * from alojamiento;
 show tables;
 create table investigador(
@@ -282,6 +335,9 @@ id_investigador int primary key,
 id_cedulaPersonal int,
 foreign key(id_cedulaPersonal) references personal(id_cedula)
 );
+``````
+``````
+
 create table investigador_proyecto(
 id_proyecto int,
 id_investigador int,
@@ -289,6 +345,8 @@ primary key(id_proyecto,id_investigador),
 foreign key(id_investigador) references investigador(id_investigador),
 foreign key(id_proyecto) references proyecto(id_proyecto)
 );
+``````
+``````
 create table proyecto(
 id_proyecto int primary key,
 especie varchar(100) not null,
@@ -297,6 +355,8 @@ presupuesto decimal not null,
 fecha_inicio date not null,
 fecha_finalizacion date not null
 );
+``````
+``````
 
 INSERT INTO tipo_persona (id_tipo, nombre_tipo) VALUES
 (1, 'Administrativo'),
@@ -304,6 +364,9 @@ INSERT INTO tipo_persona (id_tipo, nombre_tipo) VALUES
 (3, 'Biologo'),
 (4, 'Guía Turístico'),
 (5, 'Investigador');
+
+``````
+``````
 INSERT INTO parque (id_parque, nombre_parque, direccion, dia_declaracion, id_areas)
 VALUES
 (1, 'Parque Nacional del Este', 'Calle Principal 123', '2024-04-27', 1),
@@ -376,7 +439,8 @@ INSERT INTO departamento (id_departamento, nombre_departamento, id_entidad) VALU
 (3, 'Departamento de Educación Ambiental', 2),
 (4, 'Departamento de Investigación y Monitoreo', 3), 
 (5, 'Departamento de Desarrollo Sostenible', 4); 
-
+``````
+``````
 select * from especie;
 
 select v.nombre,a.nombre_alojamiento,categoria from visitante as v inner join alojamiento as a
@@ -384,3 +448,4 @@ on a.id_alojamiento = v.id_alojamiento;
 
 entidad,departamento,tipo-persona,areas,parque,personal,alojamiento,visitante,especie,area_e
 specie,investigador,proyecto,
+``````
