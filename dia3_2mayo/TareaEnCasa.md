@@ -18,7 +18,8 @@ Tipo enum('...') not null
 Create table profesor(
 Id_profesor int(10) primary key,
 Id_departamento int not null,
-foreign key(Id_departamento)references departamento(Id_departamento)
+foreign key(Id_departamento)references departamento(Id_departamento),
+foreign key(Id_persona)references persona(Id_persona)
 );
 
 
@@ -31,7 +32,7 @@ Create table asignatura(
 Id_asignatura int primary key,
 Nombre varchar(100) not null,
 Creditos float not null, 
-Tipo enum('...') not null, 
+Tipo enum('mate','sociales') not null, 
 Curso tinyint(3) not null,
 Cuatrimestres tinyint(3) not null,
 Id_profesor int(10) not null,
