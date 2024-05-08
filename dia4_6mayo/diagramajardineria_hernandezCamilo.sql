@@ -8,6 +8,8 @@ CREATE TABLE gama_producto (
     imagen VARCHAR(256)
 );
 
+
+
 CREATE TABLE producto (
     codigo_producto VARCHAR(15) PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
@@ -24,7 +26,7 @@ CREATE TABLE producto (
 CREATE TABLE cliente (
     codigo_cliente INT(11) PRIMARY KEY,
     nombre_cliente VARCHAR(50) NOT NULL,
-    nombre_contacto VARCHAR(30)
+    nombre_contacto VARCHAR(30),
     apellido_contacto VARCHAR(30),
     telefono VARCHAR(15) NOT NULL,
     fax VARCHAR(15) NOT NULL,
@@ -48,9 +50,11 @@ CREATE TABLE empleado (
     email VARCHAR(50) NOT NULL,
     codigo_oficina VARCHAR(10),
     codigo_jefe INT(11),
-    FOREIGN KEY (jefe) REFERENCES empleado(codigo_empleado),
+    puesto VARCHAR(50),
+    FOREIGN KEY (codigo_jefe) REFERENCES empleado(codigo_empleado),
     FOREIGN KEY (codigo_oficina) REFERENCES oficina(codigo_oficina)
 );
+
 
 CREATE TABLE pedido (
     codigo_pedido INT(11) PRIMARY KEY,
@@ -78,10 +82,10 @@ codigo_pedido INT(11),
 codigo_producto VARCHAR(15),
 cantidad INT(11) NOT NULL,
 precio_unidad DECIMAL(15,2) NOT NULL,
-numero_linea SMALLINT(5) NOT NULL
-primary key(codigo_pedido,codigo_producto)
+numero_linea SMALLINT(5) NOT NULL,
+primary key(codigo_pedido,codigo_producto),
 FOREIGN KEY (codigo_pedido) REFERENCES pedido(codigo_pedido),
-FOREIGN KEY (codigo_producto) REFERENCES e(codigo_empleado)
+FOREIGN KEY (codigo_producto) REFERENCES producto(codigo_producto)
 );
 
 CREATE TABLE oficina(
@@ -92,11 +96,61 @@ region VARCHAR(50),
 codigo_postal VARCHAR(10) NOT NULL,
 telefono VARCHAR(20) NOT NULL,
 linea_direccion1 VARCHAR(50) NOT NULL,
-linea_direccion2 VARCHAR(50),
+linea_direccion2 VARCHAR(50)
 );
 
+show tables;
+SELECT * from empleado;
+
+-- 0 Consultas sobre una tabla Devuelve un listado con el código de oficina y la ciudad donde hay oficinas.
 
 
+
+-- 1
+select ciudad,telefono from oficina where pais = "españa";
+
+-- 2
+select nombre,apellido1,apellido2,email from empleado where codigo_jefe= 7;
+
+-- 3 Devuelve el nombre del puesto, nombre, apellidos y email del jefe de la empresa.
+select puesto,nombre , CONCAT(apellido1," ",apellido2)as apellidos,email  from empleado where codigo_jefe= 7 ;
+
+-- 4 Devuelve un listado con el nombre, apellidos y puesto de aquellos empleados que no sean representantes de ventas.
+
+select nombre,CONCAT(apellido1," ",apellido2),puesto from empleado where puesto  != "Representante Ventas" 
+
+-- 5 Devuelve un listado con el nombre de los todos los clientes españoles.
+
+select nombre_cliente  from cliente where pais = "spain"
+
+-- 6 Devuelve un listado con los distintos estados por los que puede pasar un pedido.
+
+select DISTINCT estado from pedido; 
+
+/* 7 Devuelve un listado con el código de cliente de aquellos clientes que realizaron algún pago en 2008.
+--  Tenga en cuenta que deberá eliminar aquellos códigos de cliente que aparezcan repetidos. Resuelva la consulta:
+
+    Utilizando la función YEAR de MySQL.
+    Utilizando la función DATE_FORMAT de MySQL.
+    Sin utilizar ninguna de las funciones anteriores. */
+
+select c.codigo_cliente , p.fecha_pago from cliente as c join pago as p on p.codigo_cliente = c.codigo_cliente  where year(fecha_pago) = "2008" ;
+select c.codigo_cliente , p.fecha_pago from cliente as c join pago as p on p.codigo_cliente = c.codigo_cliente  where DATE_FORMAT(fecha_pago) < "2008-01-01" ;
+
+
+
+
+/* 15.2  Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos cuya fecha de entrega ha sido al menos dos días antes de la fecha esperada.
+
+    Utilizando la función ADDDATE de MySQL.
+    Utilizando la función DATEDIFF de MySQL.
+    ¿Sería posible resolver esta consulta utilizando el operador de suma + o resta -? */
+
+select * from pedido where  DATEDIFF(fecha_esperada,fecha_entrega) >=2
+
+
+
+select * from pago;
 
 
 
@@ -147,6 +201,8 @@ INSERT INTO gama_producto VALUES ('Herramientas','Herramientas para todo tipo de
 INSERT INTO gama_producto VALUES ('Aromáticas','Plantas aromáticas',NULL,NULL);
 INSERT INTO gama_producto VALUES ('Frutales','Árboles pequeños de producción frutal',NULL,NULL);
 INSERT INTO gama_producto VALUES ('Ornamentales','Plantas vistosas para la decoración del jardín',NULL,NULL);
+
+SELECT * from empleado e  ;
 
 INSERT INTO cliente VALUES (1,'GoldFish Garden','Daniel G','GoldFish','5556901745','5556901746','False Street 52 2 A',NULL,'San Francisco',NULL,'USA','24006',19,3000);
 INSERT INTO cliente VALUES (3,'Gardening Associates','Anne','Wright','5557410345','5557410346','Wall-e Avenue',NULL,'Miami','Miami','USA','24010',19,6000);
