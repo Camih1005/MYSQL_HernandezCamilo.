@@ -1,5 +1,8 @@
+-- creacion de la base de datos
 create database jardineria;
 use jardineria
+
+-- Creacion de las tablas
 
 CREATE TABLE gama_producto (
     gama VARCHAR(50) PRIMARY KEY,
@@ -99,6 +102,9 @@ linea_direccion1 VARCHAR(50) NOT NULL,
 linea_direccion2 VARCHAR(50)
 );
 
+
+-- CREACION DE CONSULTAS
+
 show tables;
 SELECT * from empleado;
 
@@ -139,14 +145,6 @@ select c.codigo_cliente , p.fecha_pago from cliente as c join pago as p on p.cod
 
 
 
-
-/* 15.2  Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos cuya fecha de entrega ha sido al menos dos días antes de la fecha esperada.
-
-    Utilizando la función ADDDATE de MySQL.
-    Utilizando la función DATEDIFF de MySQL.
-    ¿Sería posible resolver esta consulta utilizando el operador de suma + o resta -? */
-
-select * from pedido where  DATEDIFF(fecha_esperada,fecha_entrega) >=2
 
 
 
