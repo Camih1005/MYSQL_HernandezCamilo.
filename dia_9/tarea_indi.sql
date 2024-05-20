@@ -10,9 +10,9 @@ show tables;
 
 create FULLTEXT INDEX idx_puesto on empleado(puesto);
 
-select cli.nombreCliente, cli.telefono, cli.ciudad, concat(emp.nombre," ",emp.apellido1) as "Nombre", emp.email
+select cli.nombre_cliente, cli.telefono, cli.ciudad, concat(emp.nombre," ",emp.apellido1) as "Nombre", emp.email
 from empleado as emp 
-inner join cliente as cli on cli.codigoEmpleadoRepVentas=emp.codigoEmpleado
+inner join cliente as cli on cli.codigo_empleado =emp.codigo_empleado
 where emp.puesto="Representante Ventas";
 
 
@@ -22,13 +22,13 @@ where emp.puesto="Representante Ventas";
 -- de entrega, estado, los comentarios y el condigo del cliente que realizo dicho
 -- pedido.
 
-create index idx_date on pedido(fechaPedido);
+create index idx_date on pedido(fecha_pedido);
 create FULLTEXT index idx_ciudad on cliente(ciudad);
 
-select ped.codigoPedido,ped.fechaPedido,ped.fechaEntrega,ped.estado,ped.comentarios,ped.codigoCliente
+select ped.codigo_pedido,ped.fecha_pedido,ped.fecha_entrega,ped.estado,ped.comentarios,ped.codigo_Cliente
  from pedido as ped
-inner join cliente as cli on cli.codigoCliente=ped.codigoCliente
-where ped.fechaPedido BETWEEN "2009-03-15" and "2009-07-15" and cli.ciudad="Sotogrande";
+inner join cliente as cli on cli.codigo_cliente=ped.codigo_cliente
+where ped.fecha_Pedido BETWEEN "2009-03-15" and "2009-07-15" and cli.ciudad="Sotogrande";
 
 
 -- 3- Se desea obtener los productos cuya gama pertenezca a las frutas y que el
@@ -43,9 +43,9 @@ create FULLTEXT index idx_proveedor on producto(proveedor);
 create fulltext index idx_gama on gama_producto(gama);
 
 
-select pro.idProducto, pro.nombre,pro.descripcion,pro.cantidadStock,(precioVenta-(pro.precioVenta*0.1)) as "PrecioVenta 10%" ,sum(dp.cantidad) as cantidadPedido
+select pro.codigo_Producto, pro.nombre,pro.descripcion,pro.cantidad_en_Stock,(precio_Venta-(pro.precio_Venta*0.1)) as "PrecioVenta 10%" ,sum(dp.cantidad) as cantidadPedido
 from gama_producto as gp
 inner join producto as pro on gp.gama=pro.gama
-inner join detalle_pedido as dp on dp.codigoProducto=pro.idProducto
+inner join detalle_pedido as dp on dp.codigo_Producto=pro.codigo_Producto
 where gp.gama="Frutales" and pro.proveedor="Frutales Talavera S.A"
-GROUP BY pro.idProducto, pro.nombre;
+GROUP BY pro.codigo_Producto, pro.nombre;
