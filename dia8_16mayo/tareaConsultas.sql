@@ -1,6 +1,6 @@
-create database Empresa;
+create database company;
 
-use Empresa;
+use company;
 -- Consultas sobre una tabla
 -- 1. Lista el primer apellido de todos los empleados.
 delimiter //
@@ -42,40 +42,44 @@ call Empleados();
 
 -- 4. Lista el nombre y los apellidos de todos los empleados.
 
-select nombre, apellido1, if(apellido2 is null," ",apellido2) as apellido2
+select nombre, apellido1, 
+if(apellido2 is null," ",apellido2)
+as apellido2
 from empleado;
 
 -- 5 Lista el identificador de los departamentos de los empleados que aparecen
 -- en la tabla empleado.
 
-select id_departamento as identificador
+select id_departamento
+as identificador
 from empleado
 where id_departamento is not null;
 
 -- 6. Lista el identificador de los departamentos de los empleados que aparecen
 -- en la tabla empleado, eliminando los identificadores que aparecen repetidos.
 
-select distinct(id_departamento) as identificador
+select distinct(id_departamento)
+as identificador
 from empleado
 where id_departamento is not null;
 
 -- 7. Lista el nombre y apellidos de los empleados en una única columna.
 
-select concat(nombre," ", apellido1, " ",if(apellido2 is null,"",apellido2)) as FullName
+select concat(nombre," ", apellido1, " ",if(apellido2 is null,"",apellido2))
+as FullName
 from empleado;
 
 -- 8. Lista el nombre y apellidos de los empleados en una única columna,
 -- convirtiendo todos los caracteres en mayúscula.
 
-select upper(concat(nombre," ", apellido1, " ",if(apellido2 is null,"",apellido2))) as FullName
+select upper(concat(nombre," ", apellido1, " ",if(apellido2 is null,"",apellido2))) 
+as FullName
 from empleado;
 
 -- 9. Lista el nombre y apellidos de los empleados en una única columna,
 -- convirtiendo todos los caracteres en minúscula.
 
-select lower(concat(nombre," ", apellido1, " ",if(apellido2 is null,"",apellido2))) as FullName
+select lower(concat(nombre," ", apellido1, " ",if(apellido2 is null,"",apellido2))) 
+as FullName
 from empleado;
 
--- 10. Lista el identificador de los empleados junto al nif, pero el nif deberá
--- aparecer en dos columnas, una mostrará únicamente los dígitos del nif y la
--- otra la letra.
